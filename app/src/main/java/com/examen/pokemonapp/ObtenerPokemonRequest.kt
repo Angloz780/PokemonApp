@@ -4,11 +4,12 @@ import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import okhttp3.Request
 
-var gson = Gson()
-
 class ObtenerPokemonRequest {
 
     companion object {
+
+        private var gson = Gson()
+
         fun get(): ListaPokemon {
             val listaPokemon = ListaPokemon()
             val client = OkHttpClient()
@@ -30,4 +31,5 @@ class ObtenerPokemonRequest {
             return listaPokemon
         }
     }
+
 }

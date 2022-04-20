@@ -3,9 +3,11 @@ package com.examen.pokemonapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.examen.pokemonapp.databinding.ActivitySeleccionBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,11 +18,17 @@ class MainActivity : AppCompatActivity() {
         binding = ActivitySeleccionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.bDescarga.setOnClickListener {
+        binding.rvPokemon.layoutManager = LinearLayoutManager(this)
+        binding.rvPokemon.adapter = AdapterPokemon()
 
+        binding.bDescarga.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
                 val listaPokemon = ObtenerPokemonRequest.get()
-                listaPokemon.imprimirPokemons()
+                withContext(Dispatchers.Main) {
+                    (binding.rvPokemon.adapter as AdapterPokemon).pokemons = listaPokemon
+                    binding.rvPokemon.adapter?.notifyDataSetChanged()
+                    listaPokemon.imprimirPokemons()
+                }
             }
         }
     }
