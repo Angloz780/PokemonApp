@@ -1,6 +1,10 @@
 package com.examen.pokemonapp
 
+import Pokemon
+
 class ListaPokemon(var listaPokemon : MutableList<Pokemon> = mutableListOf()) {
+
+
 
     fun agregar(pokemon: Pokemon) {
         listaPokemon.add(pokemon)

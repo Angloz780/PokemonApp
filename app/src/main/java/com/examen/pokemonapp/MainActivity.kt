@@ -1,7 +1,7 @@
 package com.examen.pokemonapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.examen.pokemonapp.databinding.ActivitySeleccionBinding
@@ -25,8 +25,7 @@ class MainActivity : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.IO) {
                 val listaPokemon = ObtenerPokemonRequest.get()
                 withContext(Dispatchers.Main) {
-                    (binding.rvPokemon.adapter as AdapterPokemon).pokemons = listaPokemon
-                    binding.rvPokemon.adapter?.notifyDataSetChanged()
+                    (binding.rvPokemon.adapter as AdapterPokemon).actualiazrLista(listaPokemon)
                     listaPokemon.imprimirPokemons()
                 }
             }

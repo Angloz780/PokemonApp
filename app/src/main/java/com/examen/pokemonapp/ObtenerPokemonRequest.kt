@@ -1,5 +1,6 @@
 package com.examen.pokemonapp
 
+import Pokemon
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -24,12 +25,10 @@ class ObtenerPokemonRequest {
                         val pokemon = gson.fromJson(responseBody, Pokemon::class.java)
                         listaPokemon.agregar(pokemon)
                     }
-
                 } else
                     println("Algo ha ido mal")
             }
             return listaPokemon
         }
     }
-
 }
