@@ -1,5 +1,6 @@
 package com.examen.pokemonapp
 
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -12,6 +13,9 @@ import kotlinx.coroutines.withContext
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySeleccionBinding
+    private lateinit var listaPokemon: ListaPokemon
+
+    private val tagListaPokemon = "TAG_LISTA_POKEMON"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,14 +25,61 @@ class MainActivity : AppCompatActivity() {
         binding.rvPokemon.layoutManager = LinearLayoutManager(this)
         binding.rvPokemon.adapter = AdapterPokemon()
 
+        readFromPreferences()
+
+        actualizarAdapter(listaPokemon)
+
+        initBotonDescarga()
+    }
+
+    private fun initBotonDescarga() {
+        binding.bDescarga.contentDescription = if (listaPokemon.listaPokemon.isNullOrEmpty()) {
+            getString(R.string.descargar_pokemons)
+        } else {
+            getString(R.string.recargar_pokemons)
+        }
+
+        if (listaPokemon.listaPokemon.isNullOrEmpty()) {
+            binding.bDescarga.setImageResource(R.mipmap.ic_descarga)
+        } else {
+            binding.bDescarga.setImageResource(R.mipmap.ic_recarga)
+        }
+
+
         binding.bDescarga.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
-                val listaPokemon = ObtenerPokemonRequest.get()
+                listaPokemon = ObtenerPokemonRequest.get()
                 withContext(Dispatchers.Main) {
-                    (binding.rvPokemon.adapter as AdapterPokemon).actualiazrLista(listaPokemon)
-                    listaPokemon.imprimirPokemons()
+                    actualizarAdapter(listaPokemon)
+                    initBotonDescarga()
                 }
+                writeInPreferences()
+
+
             }
         }
     }
+
+    private fun actualizarAdapter(listaPokemon : ListaPokemon){
+        (binding.rvPokemon.adapter as AdapterPokemon).actualizarLista(listaPokemon)
+        listaPokemon.imprimirPokemons()
+    }
+
+    private fun writeInPreferences() {
+        getPreferences(Context.MODE_PRIVATE).edit().apply {
+            //println(this@MainActivity.listaPokemon.toJson())
+            putString(tagListaPokemon, this@MainActivity.listaPokemon.toJson())
+            apply()
+        }
+    }
+
+    private fun readFromPreferences() {
+        val pokemonsText = getPreferences(Context.MODE_PRIVATE).getString(tagListaPokemon, "")
+        listaPokemon = if (pokemonsText.isNullOrBlank()){
+            ListaPokemon()
+        } else {
+            ListaPokemon.fromJson(pokemonsText)
+        }
+    }
+
 }

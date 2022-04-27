@@ -1,6 +1,5 @@
 package com.examen.pokemonapp
 
-import Pokemon
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -14,7 +13,7 @@ class ObtenerPokemonRequest {
         fun get(): ListaPokemon {
             val listaPokemon = ListaPokemon()
             val client = OkHttpClient()
-            for (i in 1..9) {
+            for (i in 1..151) {
                 val request = Request.Builder()
                     .url("https://pokeapi.co/api/v2/pokemon/${i}")
                     .build()
@@ -25,10 +24,12 @@ class ObtenerPokemonRequest {
                         val pokemon = gson.fromJson(responseBody, Pokemon::class.java)
                         listaPokemon.agregar(pokemon)
                     }
+
                 } else
                     println("Algo ha ido mal")
             }
             return listaPokemon
         }
     }
+
 }

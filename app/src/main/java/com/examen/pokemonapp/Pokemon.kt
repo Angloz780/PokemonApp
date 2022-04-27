@@ -1,3 +1,5 @@
+package com.examen.pokemonapp
+
 import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
@@ -27,7 +29,7 @@ data class Pokemon (
     @SerializedName("location_area_encounters")
     val locationAreaEncounters: String,
 
-    val moves: List<Move>,
+    //val moves: List<Move>,
     val name: String,
     val order: Long,
 

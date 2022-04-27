@@ -26,7 +26,7 @@ class AdapterPokemon : RecyclerView.Adapter<AdapterPokemon.PokemonViewHolder>() 
         return pokemons.listaPokemon.size
     }
 
-    fun actualiazrLista(listaPokemon: ListaPokemon){
+    fun actualizarLista(listaPokemon: ListaPokemon) {
         pokemons = listaPokemon
         notifyDataSetChanged()
     }
