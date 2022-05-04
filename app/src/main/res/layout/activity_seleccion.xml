@@ -28,7 +28,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:indeterminateTint="@color/yellow"
+        android:indeterminateTint="@color/purple_500"
         android:elevation="1dp"
         android:visibility="gone"
         android:layout_margin="25dp"
