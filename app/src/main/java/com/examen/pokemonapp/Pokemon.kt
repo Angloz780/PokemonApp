@@ -1,5 +1,6 @@
 package com.examen.pokemonapp
 
+import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
@@ -39,6 +40,20 @@ data class Pokemon (
     val types: List<Type>,
     val weight: Long
 ) {
+
+    fun nameCapitalized() = "${name[0].uppercase()}${name.drop(1)}"
+
+    companion object{
+        fun fromJson(json:String): Pokemon{
+            val gson = Gson()
+            return gson.fromJson(json, Pokemon::class.java)
+        }
+    }
+
+    fun toJson(): String{
+        val gson = Gson()
+        return gson.toJson(this)
+    }
 
     fun decirNombreYTipo() : String {
         var result =  "$name es de tipo "

@@ -1,9 +1,12 @@
 package com.examen.pokemonapp
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.examen.pokemonapp.databinding.ItemPokemonBinding
+import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 
 class AdapterPokemon : RecyclerView.Adapter<AdapterPokemon.PokemonViewHolder>() {
@@ -33,6 +36,9 @@ class AdapterPokemon : RecyclerView.Adapter<AdapterPokemon.PokemonViewHolder>() 
         else
             holder.pokemonBinding.ivTipo2.setImageDrawable(null)
 
+        holder.pokemonBinding.root.setOnClickListener {
+            PokemonActivity.start(pokemon, holder.pokemonBinding.root.context)
+        }
     }
 
     override fun getItemCount(): Int {
