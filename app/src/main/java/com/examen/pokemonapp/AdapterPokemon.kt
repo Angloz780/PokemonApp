@@ -1,12 +1,9 @@
 package com.examen.pokemonapp
 
-import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.examen.pokemonapp.databinding.ItemPokemonBinding
-import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 
 class AdapterPokemon : RecyclerView.Adapter<AdapterPokemon.PokemonViewHolder>() {

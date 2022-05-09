@@ -5,12 +5,15 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.examen.pokemonapp.databinding.ActivityPokemonBinding
-import com.examen.pokemonapp.databinding.ItemPokemonBinding
 
 class PokemonActivity : AppCompatActivity() {
 
     companion object{
+
         const val POKEMON_TAG = "Pokemon"
+
+        const val POKEMON_ALT = "Pokemon"
+
         fun start(pokemon: Pokemon, context: Context){
             val intent = Intent(context, PokemonActivity::class.java)
             intent.putExtra(POKEMON_TAG, pokemon.toJson())
@@ -26,8 +29,9 @@ class PokemonActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val pokemonJson = intent.getStringExtra(POKEMON_TAG)
+
         if(pokemonJson != null) {
-            var pokemon = Pokemon.fromJson(pokemonJson)
+            val pokemon = Pokemon.fromJson(pokemonJson)
             binding.tvPokemonNombre.text = pokemon.nameCapitalized()
         }
     }

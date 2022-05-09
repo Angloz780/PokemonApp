@@ -50,6 +50,10 @@ data class Pokemon (
         }
     }
 
+    fun peso(): Long{
+        return height
+    }
+
     fun toJson(): String{
         val gson = Gson()
         return gson.toJson(this)
